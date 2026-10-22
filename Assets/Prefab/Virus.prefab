@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5374578384606118446}
   - component: {fileID: 2629361700671306757}
+  - component: {fileID: 7457746058292962255}
   m_Layer: 0
   m_Name: Virus
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.8772, y: 1.0121, z: 0}
-  m_LocalScale: {x: 0.042296242, y: 0.20634562, z: 1}
+  m_LocalScale: {x: 0.62605125, y: 0.44942865, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -91,3 +92,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7457746058292962255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4681631309601479185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb2cbfdab7812cef901e58827c03eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VirusScript
+  isActive: 0
+  teleportTime: 2

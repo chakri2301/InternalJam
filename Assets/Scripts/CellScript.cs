@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class CellScript : MonoBehaviour
 {
+    public static int counter = 0;
+    public int Id
+    {
+        get;
+        private set;
+    }
     int intViriiCount = 50;
     float viriiCount = 50f;
     public float multiplySpeed = 1f;
@@ -16,20 +22,55 @@ public class CellScript : MonoBehaviour
     }
     void Start()
     {
-        InvokeRepeating(nameof(UpdateVirii), 2, 2);
+        Id = counter;
+        counter++;
+        InvokeRepeating(nameof(ViriiTick), 2, 2);
+    }
+    void ViriiTick()
+    {
+        viriiCount += viriiCount * multiplySpeed * currentMultiplyRate;
+        if (viriiCount > maxVirii)
+        {
+            viriiCount = maxVirii;
+            return;
+        }
+        if (intViriiCount <= Mathf.Floor(viriiCount))
+        {
+            UpdateVirii();
+        }
+
     }
     void UpdateVirii()
     {
-        viriiCount += viriiCount * multiplySpeed * currentMultiplyRate;
-        if (intViriiCount <= Mathf.Floor(viriiCount))
-        {
-            intViriiCount = Mathf.Min((int)Mathf.Floor(viriiCount), maxVirii);
-            countText.SetText("{0}", intViriiCount);
-        }
+        intViriiCount = Mathf.Min((int)Mathf.Floor(viriiCount), maxVirii);
+        countText.SetText("{0}", intViriiCount);
         Debug.Log(intViriiCount);
     }
     public void UpdateMultiplyRate(float factor)
     {
         currentMultiplyRate = normalMultiplyRate * factor;
+    }
+    void OnMouseDown()
+    {
+        Debug.Log("You clicked me");
+        GameManager.gameManager.selectActive(this);
+    }
+    public void IncrementVirii(int count)
+    {
+        viriiCount += count;
+        countText.SetText("{0}", intViriiCount);
+    }
+    public bool DecrementVirii(int count)
+    {
+        if (viriiCount - count < 0)
+        {
+            return false;
+        }
+        else
+        {
+            viriiCount -= count;
+            UpdateVirii();
+            return true;
+        }
     }
 }
