@@ -17,8 +17,9 @@ public class VirusScript : MonoBehaviour
         {
             return false;
         }
-        Debug.Log("From " + from.Id + " to " + to.Id);
+        //Debug.Log("From " + from.Id + " to " + to.Id);
         gameObject.SetActive(true);
+        from.DecrementVirii(count);
         StartCoroutine(StartTeleport(from.transform.position, to.transform.position, to, count));
         return true;
     }

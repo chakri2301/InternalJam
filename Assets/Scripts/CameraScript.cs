@@ -16,13 +16,17 @@ public class CameraScript : MonoBehaviour
     }
     void OnScroll(InputValue inputValue)
     {
-        Debug.Log("Scroll value" + inputValue.Get<float>());
+        //Debug.Log("Scroll value" + inputValue.Get<float>());
         mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize + scrollFactor * inputValue.Get<float>(), minSize, maxSize);
     }
     void OnMove(InputValue inputValue)
     {
         Vector2 velDir = inputValue.Get<Vector2>();
         velocity = (Vector3)velDir;
+    }
+    void OnExplore()
+    {
+        GameManager.gameManager.ExploreCell();
     }
     void Update()
     {

@@ -9,15 +9,16 @@ public class CellScript : MonoBehaviour
         get;
         private set;
     }
-    int intViriiCount = 50;
+    public int intViriiCount = 50;
     float viriiCount = 50f;
     public float multiplySpeed = 1f;
     public float normalMultiplyRate = 1.2f;
     float currentMultiplyRate = 1f;
-    public int maxVirii = 500;
+    public int maxVirii = 250;
     public TextMeshPro countText;
     void Awake()
     {
+        viriiCount = intViriiCount;
         currentMultiplyRate = normalMultiplyRate;
     }
     void Start()
@@ -31,8 +32,10 @@ public class CellScript : MonoBehaviour
         viriiCount += viriiCount * multiplySpeed * currentMultiplyRate;
         if (viriiCount > maxVirii)
         {
-            viriiCount = maxVirii;
-            return;
+            GameManager.gameManager.ExploreCell(this);
+            GameManager.gameManager.ExploreCell(this);
+            GameManager.gameManager.RemoveCell(this);
+            GameManager.gameManager.DeleteCell(this);
         }
         if (intViriiCount <= Mathf.Floor(viriiCount))
         {
@@ -42,9 +45,11 @@ public class CellScript : MonoBehaviour
     }
     void UpdateVirii()
     {
+        int prevCount = intViriiCount;
         intViriiCount = Mathf.Min((int)Mathf.Floor(viriiCount), maxVirii);
+        GameManager.gameManager.ChangeVirus(intViriiCount - prevCount);
         countText.SetText("{0}", intViriiCount);
-        Debug.Log(intViriiCount);
+        //Debug.Log(intViriiCount);
     }
     public void UpdateMultiplyRate(float factor)
     {
@@ -52,13 +57,14 @@ public class CellScript : MonoBehaviour
     }
     void OnMouseDown()
     {
-        Debug.Log("You clicked me");
+        //Debug.Log("You clicked me");
         GameManager.gameManager.selectActive(this);
     }
     public void IncrementVirii(int count)
     {
         viriiCount += count;
         countText.SetText("{0}", intViriiCount);
+        //GameManager.gameManager.ChangeVirus(count);
     }
     public bool DecrementVirii(int count)
     {
@@ -69,6 +75,8 @@ public class CellScript : MonoBehaviour
         else
         {
             viriiCount -= count;
+            //Debug.Log("Decreasing in cell " + Id+" by" + count +" to "+ viriiCount);
+            //GameManager.gameManager.ChangeVirus(-count);
             UpdateVirii();
             return true;
         }
